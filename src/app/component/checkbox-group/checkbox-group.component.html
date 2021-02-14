@@ -1,0 +1,18 @@
+<div class="form-group row align-items-start" [formGroup]="formGroup" id="checkboxGroup-{{identifier}}">
+    <div class="row" *ngFor="let checkboxRow of checkboxObjects | chunk: rowWidth; index as i">
+        <div class="col" *ngIf="preLabel && i == 0">{{preLabel}}</div>
+        <div class="col" *ngFor="let checkboxObject of checkboxRow; index as j">
+            <div class="col form-check">
+                <input class="form-check-input" type="checkbox" name="checkbox-{{identifier}}-{{i * rowWidth + j}}"
+                    [formControl]="getCheckboxControl(i * rowWidth + j)"
+                    id="checkbox-{{identifier}}-{{i * rowWidth + j}}" (change)="onCheckboxUpdated(checkboxObject)">
+                <label class="form-check-label" for="checkbox-{{identifier}}-{{i * rowWidth + j}}">
+                    {{checkboxObject.shortName}}
+                </label>
+            </div>
+        </div>
+    </div>
+
+    <div class="invalid-feedback" *ngIf="formGroup.errors?.requireCheckboxesToBeChecked && areCheckboxesSelectable">At
+        least one option is required</div>
+</div>

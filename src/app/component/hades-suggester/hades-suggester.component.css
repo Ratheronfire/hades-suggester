@@ -1,0 +1,30 @@
+.suggesterContainer {
+    display: flex;
+}
+
+.suggesterOptions {
+    padding: 0 10px;
+
+    display: flex;
+    flex-direction: column;
+}
+
+.suggesterOptions accordion {
+    width: 625px;
+}
+
+.suggesterMain {
+    flex-grow: 1;
+}
+
+.response {
+    white-space: pre-line;
+}
+
+#heatInput {
+    width: 35px;
+}
+
+mv-slider {
+    padding: 0 10px;
+}

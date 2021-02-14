@@ -1,0 +1,7 @@
+<ng-template #tooltipTemplate>
+    <img [src]="asset?.imagePath">
+    <div>{{asset?.key}}</div>
+    <div>{{asset?.tooltipText}}</div>
+</ng-template>
+
+<b [tooltip]="tooltipTemplate" placement="right">{{asset?.key}}</b>

@@ -1,0 +1,60 @@
+<form class="suggesterContainer" [formGroup]="settingsForm">
+    <div class="suggesterOptions">
+        <accordion>
+            <accordion-group heading="Infernal Arms">
+                <app-checkbox-group [checkboxObjects]="infernalArms" [formGroup]="armFormGroup" [identifier]="'arms'"
+                    [rowWidth]="6" (checkboxUpdatedEvent)="onArmUpdate($event)">
+                </app-checkbox-group>
+            </accordion-group>
+            <accordion-group heading="Weapon Aspects">
+                <ng-container *ngFor="let arm of infernalArms; index as i">
+                    <div class="row align-items-start" formArrayName="aspectGroups">
+                        <app-checkbox-group [checkboxObjects]="weaponAspects[arm.key]" [formGroup]="getAspectGroup(i)"
+                            [preLabel]="arm.key + ':'" [identifier]="'aspect' + i" [rowWidth]="4">
+                        </app-checkbox-group>
+                    </div>
+                </ng-container>
+            </accordion-group>
+            <accordion-group heading="Keepsakes">
+                <app-checkbox-group [checkboxObjects]="keepsakes" [formGroup]="keepsakeFormGroup" [identifier]="'keepsakes'" [requiredCount]="0">
+                </app-checkbox-group>
+            </accordion-group>
+            <accordion-group heading="Companions">
+                <app-checkbox-group [checkboxObjects]="companions" [formGroup]="companionFormGroup" [identifier]="'companions'" [requiredCount]="0">
+                </app-checkbox-group>
+            </accordion-group>
+            <accordion-group heading="Pact of Punishment">
+                <app-checkbox-group [checkboxObjects]="pactConditions" [formGroup]="pactFormGroup"
+                    [identifier]="'pactConditions'" [requiredCount]="0">
+                </app-checkbox-group>
+                <div>
+                    Desired Heat: {{desiredHeat}} <mv-slider id="heatSlider" [(value)]="desiredHeat" [step]="1"
+                        [min]="0" [max]="63">
+                    </mv-slider>
+                </div>
+            </accordion-group>
+        </accordion>
+
+        <button type="submit" class="btn btn-primary" (click)="createLoadout()" [disabled]="!settingsForm.valid">Suggest
+            a Loadout</button>
+    </div>
+
+    <div class="suggesterMain">
+        <h3 *ngIf="loadoutMade">Try a run using <app-suggestion [asset]="selectedWeapon"></app-suggestion>, with the
+            <app-suggestion [asset]="selectedAspect"></app-suggestion>.</h3>
+        <br />
+
+        <h3 *ngIf="loadoutMade && (selectedKeepsake || selectedCompanion)">
+            Equip: <app-suggestion [asset]="selectedKeepsake"></app-suggestion> <ng-container *ngIf="selectedKeepsake && selectedCompanion"> and </ng-container>
+            <app-suggestion *ngIf="selectedCompanion" [asset]="selectedCompanion"></app-suggestion>.</h3>
+        <br />
+
+        <h4 *ngIf="selectedConditions.length">
+            Use these Pact of Punishment conditions ({{cumulativeHeat}} heat):
+            <ul class="list-group">
+                <li class="list-group-item" *ngFor="let condition of selectedConditions"><b>{{condition.key}}
+                        ({{condition.rankSelected}}x)</b></li>
+            </ul>
+        </h4>
+    </div>
+</form>
