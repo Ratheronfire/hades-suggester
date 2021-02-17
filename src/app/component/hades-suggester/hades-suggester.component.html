@@ -23,6 +23,10 @@
                 <app-checkbox-group [checkboxObjects]="companions" [formGroup]="companionFormGroup" [identifier]="'companions'" [requiredCount]="0">
                 </app-checkbox-group>
             </accordion-group>
+            <accordion-group heading="Mirror of Night Talents">
+                <app-checkbox-group [checkboxObjects]="mirrorPerks" [formGroup]="mirrorFormGroup" [identifier]="'mirrorPerks'" [requiredCount]="0" [rowWidth]="2">
+                </app-checkbox-group>
+            </accordion-group>
             <accordion-group heading="Pact of Punishment">
                 <app-checkbox-group [checkboxObjects]="pactConditions" [formGroup]="pactFormGroup"
                     [identifier]="'pactConditions'" [requiredCount]="0">
@@ -40,21 +44,31 @@
     </div>
 
     <div class="suggesterMain">
-        <h3 *ngIf="loadoutMade">Try a run using <app-suggestion [asset]="selectedWeapon"></app-suggestion>, with the
-            <app-suggestion [asset]="selectedAspect"></app-suggestion>.</h3>
+        <h5 *ngIf="loadoutMade">Try a run using <app-suggestion [asset]="selectedWeapon"></app-suggestion>, with the
+            <app-suggestion [asset]="selectedAspect"></app-suggestion>.</h5>
         <br />
 
-        <h3 *ngIf="loadoutMade && (selectedKeepsake || selectedCompanion)">
+        <h5 *ngIf="loadoutMade && (selectedKeepsake || selectedCompanion)">
             Equip: <app-suggestion [asset]="selectedKeepsake"></app-suggestion> <ng-container *ngIf="selectedKeepsake && selectedCompanion"> and </ng-container>
-            <app-suggestion *ngIf="selectedCompanion" [asset]="selectedCompanion"></app-suggestion>.</h3>
+            <app-suggestion *ngIf="selectedCompanion" [asset]="selectedCompanion"></app-suggestion>.</h5>
         <br />
 
-        <h4 *ngIf="selectedConditions.length">
+        <h6 *ngIf="loadoutMade">
+            Use these Mirror of Night Talents:
+            <ul class="list-group">
+                <li class="list-group-item" *ngFor="let perk of enabledMirrorPerks">
+                    <app-suggestion [asset]="perk"></app-suggestion>
+                </li>
+            </ul>
+        </h6>
+
+        <h6 *ngIf="selectedConditions.length">
             Use these Pact of Punishment conditions ({{cumulativeHeat}} heat):
             <ul class="list-group">
-                <li class="list-group-item" *ngFor="let condition of selectedConditions"><b>{{condition.key}}
-                        ({{condition.rankSelected}}x)</b></li>
+                <li class="list-group-item" *ngFor="let condition of selectedConditions">
+                    <app-suggestion [asset]="condition"></app-suggestion>
+                    </li>
             </ul>
-        </h4>
+        </h6>
     </div>
 </form>

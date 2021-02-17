@@ -1,7 +1,9 @@
 <ng-template #tooltipTemplate>
-    <img [src]="asset?.imagePath">
-    <div>{{asset?.key}}</div>
-    <div>{{asset?.tooltipText}}</div>
+    <img *ngIf="asset?.imagePath" [src]="asset?.imagePath">
+    <div>{{asset?.name}}</div>
+    <br />
+
+    <div style="white-space: pre-line;">{{asset?.tooltipText}}</div>
 </ng-template>
 
-<b [tooltip]="tooltipTemplate" placement="right">{{asset?.key}}</b>
+<b [tooltip]="tooltipTemplate" placement="right">{{asset?.name}}</b>

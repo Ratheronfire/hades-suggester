@@ -12,6 +12,7 @@ import { HadesSuggesterComponent } from './component/hades-suggester/hades-sugge
 import { SuggestionComponent } from './component/suggestion/suggestion.component';
 import { CheckboxGroupComponent } from './component/checkbox-group/checkbox-group.component';
 import { ChunkPipe } from './pipe/chunk.pipe';
+import { EnabledForSelectingPipe } from './pipe/enabled-for-selecting.pipe';
 
 @NgModule({
   declarations: [
@@ -19,7 +20,8 @@ import { ChunkPipe } from './pipe/chunk.pipe';
     HadesSuggesterComponent,
     SuggestionComponent,
     CheckboxGroupComponent,
-    ChunkPipe
+    ChunkPipe,
+    EnabledForSelectingPipe
   ],
   imports: [
     NgxBootstrapSliderModule,
